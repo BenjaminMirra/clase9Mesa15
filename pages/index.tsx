@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
@@ -7,19 +7,20 @@ import { Product, ProductsAPIResponse } from "../types";
 // Por ahora estamos utilizando data mockeada, pero
 // debemos reemplazar esto por información proveniente de la
 // API
-export const data: ProductsAPIResponse = [
-  {
-    id: 1,
-    title: "Mochila con correas",
-    price: 7500,
-    description:
-      "Tu mochila perfecta para el dìa a dìa y salidas de fin de semana. Guarda tu notebook (hasta 15 pulgadas) en la funda acolchada, y protégela de los rayones y golpes",
-    image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-    rating: 4,
-  },
-];
 
-const Home: NextPage = () => {
+interface Props{
+  data:ProductsAPIResponse
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const res = await fetch("https://clase9-mesa15.vercel.app/api/products")
+  const data : ProductsAPIResponse = await res.json();
+  return {
+    props: { data }
+  }
+}
+
+const Home: NextPage<Props> = ({data} : Props) => {
   if (!data) return null;
 
   const formatPrice: (price: number) => string = (price) =>
@@ -78,7 +79,7 @@ const Home: NextPage = () => {
       </Head>
       <main className={styles.main}>
         <h1>Productos destacados</h1>
-        <div className={styles.grid}>{data.map(renderProductCard)}</div>
+        <div className={styles.grid}>{data?.map(renderProductCard)}</div>
       </main>
       <footer className={styles.footer}>
         <span>Powered by</span>
