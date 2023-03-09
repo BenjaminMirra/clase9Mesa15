@@ -12,8 +12,9 @@ interface Props{
   data:TyCsAPIResponse
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`https://clase9-mesa15.vercel.app/api/tycs`)
+export const getStaticProps: GetStaticProps = async (context) => {
+  const lan = context.locale
+  const res = await fetch(process.env.BASE_URL + "/api/tycs/" + lan)
   const data : TyCsAPIResponse= await res.json()
   return {
       props: {

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { Product, ProductsAPIResponse } from "../types";
+import { defaultLocale } from '../locale/constants'
 
 // Por ahora estamos utilizando data mockeada, pero
 // debemos reemplazar esto por información proveniente de la
@@ -12,9 +13,10 @@ interface Props{
   data:ProductsAPIResponse
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(process.env.BASE_URL + "/api/products")
-  const data : ProductsAPIResponse = await res.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const lan = context.locale
+  const res = await fetch(process.env.BASE_URL + "/api/products/" + lan)
+  const data : ProductsAPIResponse = await res.json();  
   return {
     props: { data }
   }
