@@ -13,7 +13,7 @@ interface Props{
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("https://clase9-mesa15.vercel.app/api/products")
+  const res = await fetch(process.env.BASE_URL + "/api/products")
   const data : ProductsAPIResponse = await res.json();
   return {
     props: { data }
