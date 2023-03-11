@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 
 const Header = () => {
 
+  const language = useRouter()
+
   return (
     <header className={styles.header}>
       <div>
@@ -25,7 +27,7 @@ const Header = () => {
       <div className={styles.navbar}>
         {Object.keys(locales).map((lan) => {
         return (
-          <Link href="/" key={lan} locale={locales[lan]}>
+          <Link href={language.asPath} key={lan} locale={locales[lan]}>
             {localeNames[locales[lan]]}
           </Link>
         )
