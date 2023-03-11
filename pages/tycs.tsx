@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from "next";
+import { GetServerSideProps,NextPage } from "next";
 import React from "react";
 import { TyC, TyCsAPIResponse } from "../types";
 import styles from "../styles/TYC.module.css";
@@ -12,7 +12,7 @@ interface Props{
   data:TyCsAPIResponse
 }
 
-export const getServerSideProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const lan = context.locale
   const res = await fetch(process.env.BASE_URL+"/api/tycs/" + lan)
   const data : TyCsAPIResponse= await res.json()
