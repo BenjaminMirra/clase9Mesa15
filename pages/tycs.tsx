@@ -12,7 +12,7 @@ interface Props{
   data:TyCsAPIResponse
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetStaticProps = async (context) => {
   const lan = context.locale
   const res = await fetch(process.env.BASE_URL+"/api/tycs/" + lan)
   const data : TyCsAPIResponse= await res.json()
