@@ -6,7 +6,6 @@ import {locales, localeNames } from '../../../locale/constants';
 import { useRouter } from "next/router";
 
 const Header = () => {
-  const language = useRouter();
 
   return (
     <header className={styles.header}>
@@ -26,7 +25,7 @@ const Header = () => {
       <div className={styles.navbar}>
         {Object.keys(locales).map((lan) => {
         return (
-          <Link href={language.asPath} key={lan} locale={locales[lan]}>
+          <Link href="/" key={lan} locale={locales[lan]}>
             {localeNames[locales[lan]]}
           </Link>
         )
