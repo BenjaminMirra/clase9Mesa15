@@ -14,7 +14,7 @@ interface Props{
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const lan = context.locale
-  const res = await fetch(process.env.BASE_URL+"/api/tycs/" + lan)
+  const res = await fetch("https://clase9-mesa15.vercel.app/api/tycs/" + lan)
   const data : TyCsAPIResponse= await res.json()
   return {
       props: {
